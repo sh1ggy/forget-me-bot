@@ -8,108 +8,127 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+	SafeAreaView,
+	ScrollView,
+	StyleSheet,
+	Text,
+	View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { Button, FAB, List, TextInput, Switch } from 'react-native-paper';
 
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+interface Reminder {
+	title: string,
+	interval: number,
+	startTime: number,
+	endTime: number,
+	activation: boolean,
+}
+
+var reminders: Array<Reminder> = [
+	{
+		title: "title",
+		interval: 20,
+		startTime: 100,
+		endTime: 100,
+		activation: false,
+	},
+	{
+		title: "title2",
+		interval: 10,
+		startTime: 200,
+		endTime: 200,
+		activation: true,
+	}
+]
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+	return (
+		<SafeAreaView style={styles.pageContainer}>
+			<ScrollView
+				contentInsetAdjustmentBehavior="automatic">
+				{reminders.map((reminder, index) => {
+					const [isSwitchOn, setIsSwitchOn] = React.useState(reminder.activation);
+					const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+					return (
+						<>
+							<List.Section 
+								style={{backgroundColor:'#111111', padding: 20, borderRadius: 10}}
+								title="">
+								<List.Accordion
+									style={styles.accordion}
+									right={props => <List.Icon {...props} icon="reminder" />}
+									title={reminder.title}>
+									<View>
+										<View style={{ flex: 1, flexDirection: "column" }}>
+											<Text style={{ paddingBottom: "5%", paddingTop: "10%" }}>Time Between Intervals</Text>
+											<TextInput>{reminder.interval}</TextInput>
+											<View style={{ flex: 1, flexDirection: "row", justifyContent: "space-around", paddingBottom: "5%", paddingTop: "10%" }}>
+												<View style={{ flex: 1, flexDirection: "column" }}>
+													<Text style={styles.timeLabel}>Start Time</Text>
+													<TextInput>{reminder.startTime}</TextInput>
+												</View>
+												<View style={{ flex: 1, flexDirection: "column" }}>
+													<Text style={styles.timeLabel}>Start Time</Text>
+													<TextInput>{reminder.endTime}</TextInput>
+												</View>
+											</View>
+										</View>
+										<View style={{ flex: 1, flexDirection: "row" }}>
+											<Switch
+												color='#A576D4'
+												value={isSwitchOn}
+												onValueChange={onToggleSwitch}
+											/>
+											<Button onPress={() => {
+												reminders.splice(1, index)
+											}}>Delete</Button>
+											<Button>Save</Button>
+										</View>
+									</View>
+								</List.Accordion>
+							</List.Section>
+						</>
+					)
+				})}
+			</ScrollView>
+			<View style={styles.fabContainer}>
+				<FAB
+					style={styles.fab}
+					icon='plus'
+				/>
+			</View>
+		</SafeAreaView>
+	);
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
+	pageContainer: {
+		flex: 1,
+		paddingTop: 10,
+		paddingLeft: 10,
+		paddingRight: 10,
+	},
+	accordion: {
+		borderRadius: 10,
+		// backgroundColor: 'red',
+	},
+	fabContainer: {
+		flex: 1,
+		alignItems: 'center'
+	},
+	timeLabel: {
+		paddingBottom: 10,
+	},
+	fab: {
+		position: 'absolute',
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		marginBottom: 20,
+		bottom: 0,
+		backgroundColor: 'red'
+	},
+})
 export default App;
