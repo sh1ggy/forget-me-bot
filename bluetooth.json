@@ -1,0 +1,278 @@
+[
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "74:95:EC:33:16:77",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "74:95:EC:33:16:77",
+            "name": "CAR MULTIMEDIA"
+        },
+        "address": "74:95:EC:33:16:77",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "74:95:EC:33:16:77",
+        "name": "CAR MULTIMEDIA",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "D8:8C:79:09:63:8F",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "D8:8C:79:09:63:8F",
+            "name": "Pixel Buds"
+        },
+        "address": "D8:8C:79:09:63:8F",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "D8:8C:79:09:63:8F",
+        "name": "Pixel Buds",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "EC:94:CB:52:9C:26",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "EC:94:CB:52:9C:26",
+            "name": "ESP32test"
+        },
+        "address": "EC:94:CB:52:9C:26",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "EC:94:CB:52:9C:26",
+        "name": "ESP32test",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "C6:A6:57:3A:FB:79",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "C6:A6:57:3A:FB:79",
+            "name": "Charge 3"
+        },
+        "address": "C6:A6:57:3A:FB:79",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "C6:A6:57:3A:FB:79",
+        "name": "Charge 3",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "00:1D:86:D2:2D:F5",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "00:1D:86:D2:2D:F5",
+            "name": "DDX4"
+        },
+        "address": "00:1D:86:D2:2D:F5",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "00:1D:86:D2:2D:F5",
+        "name": "DDX4",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "8C:DE:52:E9:C6:6E",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "8C:DE:52:E9:C6:6E",
+            "name": "SRS-X11"
+        },
+        "address": "8C:DE:52:E9:C6:6E",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "8C:DE:52:E9:C6:6E",
+        "name": "SRS-X11",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "CC:A7:C1:F0:72:C5",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "CC:A7:C1:F0:72:C5",
+            "name": "Pixel Buds"
+        },
+        "address": "CC:A7:C1:F0:72:C5",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "CC:A7:C1:F0:72:C5",
+        "name": "Pixel Buds",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "8C:7A:AA:C8:52:F0",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "8C:7A:AA:C8:52:F0",
+            "name": "AirPods Pro"
+        },
+        "address": "8C:7A:AA:C8:52:F0",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "8C:7A:AA:C8:52:F0",
+        "name": "AirPods Pro",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "8A:FD:FF:74:89:CA",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "8A:FD:FF:74:89:CA",
+            "name": "F100"
+        },
+        "address": "8A:FD:FF:74:89:CA",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "8A:FD:FF:74:89:CA",
+        "name": "F100",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "5C:FB:7C:CD:4F:16",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "5C:FB:7C:CD:4F:16",
+            "name": "JBL Flip 5"
+        },
+        "address": "5C:FB:7C:CD:4F:16",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "5C:FB:7C:CD:4F:16",
+        "name": "JBL Flip 5",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "E8:AB:FA:43:B7:3E",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "E8:AB:FA:43:B7:3E",
+            "name": "TaoTronics SoundSurge 90"
+        },
+        "address": "E8:AB:FA:43:B7:3E",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "E8:AB:FA:43:B7:3E",
+        "name": "TaoTronics SoundSurge 90",
+        "rssi": undefined
+    },
+    {
+        "_bluetoothModule": {
+            "_eventEmitter": [NativeEventEmitter
+            ],
+            "_nativeModule": [Object
+            ]
+        },
+        "_nativeDevice": {
+            "address": "10:4F:A8:4A:09:03",
+            "bonded": true,
+            "extra": [Object
+            ],
+            "id": "10:4F:A8:4A:09:03",
+            "name": "MDR-ZX770BN"
+        },
+        "address": "10:4F:A8:4A:09:03",
+        "bonded": true,
+        "deviceClass": undefined,
+        "extra": {},
+        "id": "10:4F:A8:4A:09:03",
+        "name": "MDR-ZX770BN",
+        "rssi": undefined
+    }
+]

@@ -10,10 +10,17 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^6.1.2",
+    "@react-native-picker/picker": "^2.4.0",
     "react": "17.0.2",
+    "react-hook-form": "^7.29.0",
     "react-native": "0.68.0",
+    "react-native-base64": "^0.2.1",
     "react-native-ble-manager": "^8.0.2",
+    "react-native-ble-plx": "^2.0.3",
+    "react-native-bluetooth-classic": "^1.60.0-rc.20",
     "react-native-paper": "^4.12.0",
+    "react-native-picker-select": "^8.0.4",
     "react-native-vector-icons": "^9.1.0"
   },
   "devDependencies": {
@@ -22,6 +29,7 @@
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.67.3",
+    "@types/react-native-base64": "^0.2.0",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
