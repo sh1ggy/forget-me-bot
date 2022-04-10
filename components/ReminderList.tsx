@@ -56,7 +56,7 @@ function ReminderList(props: { reminder: Reminder, index: number, deleteReminder
 								onChangeText={text => setTitle(text)}
 								value={title}
 							></TextInput>
-							<Text style={{ paddingBottom: "5%", paddingTop: "10%" }}>Time Between Intervals (Minutes)</Text>
+							<Text style={{ paddingBottom: "5%", paddingTop: "10%" }}>Time Intervals Between Actions (Minutes)</Text>
 							<TextInput
 								mode='outlined'
 								keyboardType={'numeric'}
@@ -85,6 +85,7 @@ function ReminderList(props: { reminder: Reminder, index: number, deleteReminder
 									/>
 								</View>
 							</View>
+							<Text style={{ paddingBottom: "5%", paddingTop: "10%" }}>Reminder Action</Text>
 							<RNPickerSelect
 								value={select}
 								onValueChange={(selection) => onChangeSelect(selection)}
