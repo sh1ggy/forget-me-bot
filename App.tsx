@@ -1,105 +1,171 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
  * @format
  */
 
-import React, { useEffect } from 'react';
-import {
-	SafeAreaView,
-	ScrollView,
-	StyleSheet,
-	Text,
-	View,
-} from 'react-native';
-
-import { Button, FAB, List, TextInput, Switch } from 'react-native-paper';
-
-interface Reminder {
+import React, { useEffect, useState } from 'react';
+export enum Select {
+	LED = 0,
+	Shake = 1,
+	LCD = 2,
+}
+export interface Reminder {
 	title: string,
 	interval: number,
 	startTime: number,
 	endTime: number,
 	activation: boolean,
+	select: Select,
 }
-
-var reminders: Array<Reminder> = [
-	{
-		title: "title",
-		interval: 20,
-		startTime: 100,
-		endTime: 100,
-		activation: false,
-	},
-	{
-		title: "title2",
-		interval: 10,
-		startTime: 200,
-		endTime: 200,
-		activation: true,
-	}
-]
+import ReminderList, { SaveReminderType } from './components/ReminderList';
+import {
+	PermissionsAndroid,
+	SafeAreaView,
+	ScrollView,
+	StyleSheet, View
+} from 'react-native';
+import { Button, FAB } from 'react-native-paper';
+import RNBluetoothClassic, { BluetoothDevice } from 'react-native-bluetooth-classic';
+import { Buffer } from 'buffer';
+const ESP_ADDRESS = "EC:94:CB:52:9C:26";
+const INT_SIZE = 4;
 
 const App = () => {
+	const requestAccessFineLocationPermission = async () => {
+		const granted = await PermissionsAndroid.request(
+			PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
+			{
+				title: 'Access fine location required for discovery',
+				message:
+					'In order to perform discovery, you must enable/allow ' +
+					'fine location access.',
+				buttonNeutral: 'Ask Me Later',
+				buttonNegative: 'Cancel',
+				buttonPositive: 'OK',
+			}
+		);
+		return granted === PermissionsAndroid.RESULTS.GRANTED;
+	};
+
+	const [esb32, setDevice] = useState<BluetoothDevice>()
+
+	useEffect(() => {
+		async function getBonded() {
+			let bonded = await RNBluetoothClassic.getBondedDevices()
+			bonded = bonded.filter((device) => (device.address == ESP_ADDRESS))
+			setDevice(bonded[0])
+		}
+		getBonded()
+	}, [])
+
+	async function bufferCreate(bNumber: number) {
+		let b = Buffer.allocUnsafe(INT_SIZE)
+		b.writeInt32LE(bNumber)
+		return b
+	}
+
+	async function writeWithDelimiter(data: any, delimiter: string) {
+		await esb32?.write(data)
+		await esb32?.write(delimiter)
+	}
+
+	async function syncRemindersOnPress() {
+		let granted = await requestAccessFineLocationPermission()
+
+		await esb32?.connect()
+		console.log(esb32)
+
+		await esb32?.write('!')
+		
+		for await (const reminder of reminders) {
+			const timestamp = await bufferCreate(Date.now())
+			await esb32?.write(timestamp)
+			await esb32?.write('-')
+			console.log(timestamp)
+			
+			// const reminderPacket =`!${reminders[i].title},${reminders[i].interval},${reminders[i].startTime},${reminders[i].endTime},${reminders[i].select}|`
+			// const reminderPacket =`${reminders[i].title},${reminders[i].interval},${reminders[i].startTime},${reminders[i].endTime}|`
+			// await esb32?.write(reminderPacket)
+		
+			writeWithDelimiter(reminder.title, ',')
+			writeWithDelimiter(reminder.interval, ',')
+			writeWithDelimiter(reminder.startTime, ',')
+			writeWithDelimiter(reminder.endTime, ',')
+			writeWithDelimiter(reminder.activation, '|')
+			// writeWithDelimiter(reminder.select, ',')
+
+		}
+		// let data = base64.encode(remindersString)
+		// data += "what in the fuck \0do you mean by that"
+		// await esb32.write(data)
+		await esb32?.disconnect()
+	}
+
+	const [reminders, setReminders] = useState<Array<Reminder>>(
+		[{
+			title: "title",
+			interval: 20,
+			startTime: 100,
+			endTime: 100,
+			activation: false,
+			select: Select.LED
+		}]
+	)
+
+	function deleteOnPress(index: number) {
+		const newReminders = [...reminders]
+		newReminders.splice(index, 1)
+		setReminders(newReminders)
+	}
+
+	const saveOnPress: SaveReminderType = ((i, r) => {
+		console.log(...reminders);
+
+		const newReminders = [...reminders];
+		newReminders.splice(i, 1, r);
+		setReminders(newReminders);
+	})
+
+	function addOnPress() {
+		const reminder: Reminder = {
+			title: "Insert title here",
+			interval: 0,
+			startTime: 0,
+			endTime: 0,
+			activation: false,
+			select: Select.LED
+		}
+		if (reminders.length < 10) {
+			const newReminders = [...reminders, reminder]
+			setReminders(newReminders)
+		}
+	}
+
 	return (
 		<SafeAreaView style={styles.pageContainer}>
 			<ScrollView
 				contentInsetAdjustmentBehavior="automatic">
-				{reminders.map((reminder, index) => {
-					const [isSwitchOn, setIsSwitchOn] = React.useState(reminder.activation);
-					const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
-					return (
-						<>
-							<List.Section 
-								style={{backgroundColor:'#111111', padding: 20, borderRadius: 10}}
-								title="">
-								<List.Accordion
-									style={styles.accordion}
-									right={props => <List.Icon {...props} icon="reminder" />}
-									title={reminder.title}>
-									<View>
-										<View style={{ flex: 1, flexDirection: "column" }}>
-											<Text style={{ paddingBottom: "5%", paddingTop: "10%" }}>Time Between Intervals</Text>
-											<TextInput>{reminder.interval}</TextInput>
-											<View style={{ flex: 1, flexDirection: "row", justifyContent: "space-around", paddingBottom: "5%", paddingTop: "10%" }}>
-												<View style={{ flex: 1, flexDirection: "column" }}>
-													<Text style={styles.timeLabel}>Start Time</Text>
-													<TextInput>{reminder.startTime}</TextInput>
-												</View>
-												<View style={{ flex: 1, flexDirection: "column" }}>
-													<Text style={styles.timeLabel}>Start Time</Text>
-													<TextInput>{reminder.endTime}</TextInput>
-												</View>
-											</View>
-										</View>
-										<View style={{ flex: 1, flexDirection: "row" }}>
-											<Switch
-												color='#A576D4'
-												value={isSwitchOn}
-												onValueChange={onToggleSwitch}
-											/>
-											<Button onPress={() => {
-												reminders.splice(1, index)
-											}}>Delete</Button>
-											<Button>Save</Button>
-										</View>
-									</View>
-								</List.Accordion>
-							</List.Section>
-						</>
-					)
-				})}
+				{
+					reminders.map((reminder, index) => {
+						return (
+							<ReminderList key={index} reminder={reminder} index={index} deleteReminders={deleteOnPress} saveReminder={saveOnPress} />
+						)
+					})
+				}
 			</ScrollView>
 			<View style={styles.fabContainer}>
 				<FAB
+					onPress={addOnPress}
 					style={styles.fab}
 					icon='plus'
 				/>
 			</View>
+			<Button
+				onPress={syncRemindersOnPress}
+				style={styles.syncButton}
+			>Sync
+			</Button>
 		</SafeAreaView>
 	);
 };
@@ -111,16 +177,9 @@ const styles = StyleSheet.create({
 		paddingLeft: 10,
 		paddingRight: 10,
 	},
-	accordion: {
-		borderRadius: 10,
-		// backgroundColor: 'red',
-	},
 	fabContainer: {
 		flex: 1,
 		alignItems: 'center'
-	},
-	timeLabel: {
-		paddingBottom: 10,
 	},
 	fab: {
 		position: 'absolute',
@@ -128,7 +187,13 @@ const styles = StyleSheet.create({
 		marginRight: 'auto',
 		marginBottom: 20,
 		bottom: 0,
-		backgroundColor: 'red'
+		backgroundColor: '#9463C3'
 	},
+	syncButton: {
+		backgroundColor: '#161616',
+		padding: 10,
+		marginBottom: 20,
+	}
 })
+
 export default App;
